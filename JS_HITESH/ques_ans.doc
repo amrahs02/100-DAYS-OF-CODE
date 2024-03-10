@@ -1,0 +1,10 @@
+const - cannot be reassigned
+let - can be reassigned
+var - can be reassigned
+
+console.table([use every var here with comma])
+Differences between var, let, and const
+
+The scope of a var variable is functional or global scope. The scope of a let variable is block scope. The scope of a const variable is block scope.
+
+if we not initialise values then it is undefined
