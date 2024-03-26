@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA API Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>NASA API Explorer</h1>
+        <label for="api-select">Select an API:</label>
+        <select id="api-select">
+            <option value="apod">APOD: Astronomy Picture of the Day</option>
+            <option value="neo">Asteroids NeoWs: Near Earth Object Web Service</option>
+            <option value="donki">DONKI: Space Weather Database Of Notifications, Knowledge, Information</option>
+            <option value="earth">Earth: Unlock the significant public investment in Earth observation data</option>
+            <option value="eonet">EONET: The Earth Observatory Natural Event Tracker</option>
+            <option value="epic">EPIC: Earth Polychromatic Imaging Camera</option>
+            <option value="exoplanet">Exoplanet: Programmatic access to NASA's Exoplanet Archive database</option>
+            <option value="openscience">Open Science Data Repository: Programmatic interface for the Open Science Data Repository website</option>
+            <option value="insight">Insight: Mars Weather Service API</option>
+            <option value="marsrover">Mars Rover Photos: Image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars</option>
+            <option value="imagevideo">NASA Image and Video Library: API to access the NASA Image and Video Library site at images.nasa.gov</option>
+            <option value="techtransfer">TechTransfer: Patents, Software, and Tech Transfer Reports</option>
+            <option value="satellite">Satellite Situation Center: System to cast geocentric spacecraft location information into a framework of (empirical) geophysical regions</option>
+            <option value="ssd">SSD/CNEOS: Solar System Dynamics and Center for Near-Earth Object Studies</option>
+            <option value="techport">Techport: API to make NASA technology project data available in a machine-readable format</option>
+            <option value="tle">TLE API: Two-line element data for Earth-orbiting objects at a given point in time</option>
+            <option value="wmts">Vesta/Moon/Mars Trek WMTS: A Web Map Tile Service for the Vesta, Moon, and Mars Trek imagery projects</option>
+        </select>
+        <div id="api-data" class="api-data"></div>
+    </div>
+    <script>
+        const apiKey = "Da2CsBDJ7tRU9j3RxQy8Br4yT1vaeZx8GXmUznYD";
+        const apiUrlBase = "https://api.nasa.gov";
+
+        const apiSelect = document.getElementById("api-select");
+        const apiDataContainer = document.getElementById("api-data");
+
+        apiSelect.addEventListener("change", () => {
+            const selectedApi = apiSelect.value;
+            const apiUrl = `${apiUrlBase}/${selectedApi}?api_key=${apiKey}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous data
+                    apiDataContainer.innerHTML = "";
+
+                    // Display data based on selected API
+                    switch (selectedApi) {
+                        case "apod":
+                            displayAPOD(data);
+                            break;
+                        case "neo":
+                            displayNEO(data);
+                            break;
+                        case "donki":
+                            displayDONKI(data);
+                            break;
+                        case "earth":
+                            displayEarth(data);
+                            break;
+                        case "eonet":
+                            displayEONET(data);
+                            break;
+                        case "epic":
+                            displayEPIC(data);
+                            break;
+                        case "exoplanet":
+                            displayExoplanet(data);
+                            break;
+                        case "openscience":
+                            displayOpenScience(data);
+                            break;
+                        case "insight":
+                            displayInsight(data);
+                            break;
+                        case "marsrover":
+                            displayMarsRover(data);
+                            break;
+                        case "imagevideo":
+                            displayImageVideo(data);
+                            break;
+                        case "techtransfer":
+                            displayTechTransfer(data);
+                            break;
+                        case "satellite":
+                            displaySatellite(data);
+                            break;
+                        case "ssd":
+                            displaySSD(data);
+                            break;
+                        case "techport":
+                            displayTechport(data);
+                            break;
+                        case "tle":
+                            displayTLE(data);
+                            break;
+                        case "wmts":
+                            displayWMTS(data);
+                            break;
+                        default:
+                            // Do nothing
+                            break;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        });
+
+        function displayAPOD(data) {
+            const apodImg = document.createElement("img");
+            apodImg.src = data.url;
+            apodImg.alt = data.title;
+
+            const apodTitle = document.createElement("h2");
+            apodTitle.textContent = data.title;
+
+            const apodExplanation = document.createElement("p");
+            apodExplanation.textContent = data.explanation;
+
+            apiDataContainer.appendChild(apodImg);
+            apiDataContainer.appendChild(apodTitle);
+            apiDataContainer.appendChild(apodExplanation);
+        }
+
+        // Implement display functions for other APIs
+        // Example: function displayNEO(data) { ... }
+    </script>
+</body>
+</html>
