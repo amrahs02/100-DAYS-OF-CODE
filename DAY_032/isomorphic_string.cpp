@@ -11,6 +11,4 @@ public:
         }
         return true;
     }
-};// 
-
-// i+1 vs i++;
+};
